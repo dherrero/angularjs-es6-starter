@@ -1,5 +1,5 @@
 # QuickStart
-Structure to quickly start frontend projects with AngularJs +1.6, ES6 standard, momentJs, Bootstrap templates... all then bundled with Rollup.
+Structure to quickly start front-end projects with AngularJs +1.6, ES6 standard, momentJs, Bootstrap templates... all then bundled with Rollup.
 
 * Also prepared to be internationalized.
 * Handling dates with [momentjs](http://momentjs.com/)
