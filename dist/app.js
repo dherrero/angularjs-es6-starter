@@ -33928,6 +33928,7 @@ function interceptor($rootScope, i18n, $q) {
 app.factory('httpInterceptor', interceptor);
 
 app.constant('initialLocale', 'en');
+app.constant('supportedLanguages', [{ id: 'en', name: 'English' }, { id: 'es', name: 'Español' }]);
 
 var layout = "<rest-loading></rest-loading>\r\n<main-menu></main-menu>\r\n<div class=\"container-fluid\">\r\n    <div class=\"container\" ui-view></div>\r\n</div>\r\n<main-footer></main-footer>";
 
@@ -33981,9 +33982,9 @@ var mainMenuTpl = "<nav class=\"navbar navbar-default\">\r\n    <div class=\"con
 __$styleInject("/*Custom css for main-menu here*/", undefined);
 
 class MainMenu {
-    constructor(i18n) {
+    constructor(i18n, supportedLanguages) {
         this.i18n = i18n;
-        this.languages = [{ id: 'es', name: 'Español' }, { id: 'en', name: 'English' }];
+        this.languages = supportedLanguages;
         this.langSelected = i18n.getLocale();
     }
     changeLanguage(lang) {
@@ -33992,7 +33993,7 @@ class MainMenu {
     }
 }
 
-MainMenu.$inject = ['i18n'];
+MainMenu.$inject = ['i18n', 'supportedLanguages'];
 
 app.component('mainMenu', {
     template: mainMenuTpl,

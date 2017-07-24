@@ -3,12 +3,9 @@ import mainMenuTpl from './main-menu.html';
 import './main-menu.css';
 
 class MainMenu {
-    constructor(i18n){
+    constructor(i18n, supportedLanguages){
         this.i18n = i18n;
-        this.languages = [
-            {id:'es', name : 'Español'},
-            {id:'en', name : 'English'}
-        ];
+        this.languages = supportedLanguages;
         this.langSelected = i18n.getLocale();
     }
     changeLanguage(lang){
@@ -17,7 +14,7 @@ class MainMenu {
     }
 }
 
-MainMenu.$inject = ['i18n'];
+MainMenu.$inject = ['i18n', 'supportedLanguages'];
 
 app.component('mainMenu', {
     template: mainMenuTpl,
