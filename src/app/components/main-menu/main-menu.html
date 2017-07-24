@@ -11,16 +11,17 @@
             <a class="navbar-brand"  ui-sref="app.home">App name</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-            
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav">
                 <li><a ui-sref="app.example" translate>APP_EXAMPLE</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
 					<a class="dropdown-toggle main-menu__button" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 						{{$ctrl.langSelected}} <span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
-						<li ng-repeat="lang in ::$ctrl.languages track by lang.id" ng-click="$ctrl.changeLanguage(lang.id)">
-							<a>
+						<li ng-repeat="lang in ::$ctrl.languages track by lang.id">
+							<a pointer ng-click="$ctrl.changeLanguage(lang.id)">
 								{{::lang.name}} ({{::lang.id}})
 							</a>
 						</li>
