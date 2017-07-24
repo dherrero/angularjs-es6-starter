@@ -33851,11 +33851,11 @@ var _angular = Object.freeze({
 
 const app = index.module('app', ['ui.router', 'ngAnimate', 'toastr', 'ngDialog', 'pascalprecht.translate', 'angularMoment', 'moment-picker']);
 
-i18nService.$inject = ['$translate', 'amMoment'];
+i18nService.$inject = ['$translate', 'amMoment', 'initialLocale'];
 
-function i18nService(translate, moment) {
-    var locale_key = 'es',
-        localesInit = ['en', 'es'];
+function i18nService(translate, moment, initialLocale) {
+    var locale_key = initialLocale,
+        localesInit = ['en'];
 
     function addLocaleScript(locale) {
         if (localesInit.indexOf(locale) === -1 && locale.length === 2) {
@@ -33927,6 +33927,8 @@ function interceptor($rootScope, i18n, $q) {
 
 app.factory('httpInterceptor', interceptor);
 
+app.constant('initialLocale', 'en');
+
 var layout = "<rest-loading></rest-loading>\r\n<main-menu></main-menu>\r\n<div class=\"container-fluid\">\r\n    <div class=\"container\" ui-view></div>\r\n</div>\r\n<main-footer></main-footer>";
 
 var home = "<div class=\"jumbotron\">\r\n    <h1><span translate>APP_HI</span> <i class=\"glyphicon glyphicon-heart pull-right\"></i></h1>\r\n</div>";
@@ -33958,9 +33960,8 @@ function httpConfig($httpProvider) {
 }
 app.config(httpConfig);
 
-i18nConfig.$inject = ['$translateProvider', 'i18nProvider', 'momentPickerProvider'];
-function i18nConfig($translateProvider, i18n, momentPickerProvider) {
-    var initialLocale = 'es';
+i18nConfig.$inject = ['$translateProvider', 'i18nProvider', 'momentPickerProvider', 'initialLocale'];
+function i18nConfig($translateProvider, i18n, momentPickerProvider, initialLocale) {
 
     $translateProvider.useSanitizeValueStrategy('sanitizeParameters');
 
@@ -33971,7 +33972,7 @@ function i18nConfig($translateProvider, i18n, momentPickerProvider) {
     i18n.$get().changeLocale(initialLocale);
     momentPickerProvider.options({ locale: initialLocale });
     window.moment.locale(initialLocale);
-    window.moment.tz.setDefault('Europe/Madrid');
+    //window.moment.tz.setDefault('Europe/Madrid');
 }
 app.config(i18nConfig);
 
@@ -33983,7 +33984,7 @@ class MainMenu {
     constructor(i18n) {
         this.i18n = i18n;
         this.languages = [{ id: 'es', name: 'Español' }, { id: 'en', name: 'English' }];
-        this.langSelected = 'es';
+        this.langSelected = i18n.getLocale();
     }
     changeLanguage(lang) {
         this.langSelected = lang;
@@ -51734,92 +51735,6 @@ var require$$1 = ( latest$1 && latest ) || latest$1;
 var index$1 = createCommonjsModule(function (module) {
 var moment = module.exports = momentTimezone;
 moment.tz.load(require$$1);
-});
-
-var es = createCommonjsModule(function (module, exports) {
-//! moment.js locale configuration
-//! locale : Spanish [es]
-//! author : Julio Napurí : https://github.com/julionc
-
-(function (global, factory) {
-   'object' === 'object' && 'object' !== 'undefined'
-       && typeof commonjsRequire === 'function' ? factory(moment$2) :
-   typeof undefined === 'function' && undefined.amd ? undefined(['../moment'], factory) :
-   factory(global.moment);
-}(commonjsGlobal, (function (moment) { 'use strict';
-
-
-var monthsShortDot = 'ene._feb._mar._abr._may._jun._jul._ago._sep._oct._nov._dic.'.split('_');
-var monthsShort = 'ene_feb_mar_abr_may_jun_jul_ago_sep_oct_nov_dic'.split('_');
-
-var es = moment.defineLocale('es', {
-    months : 'enero_febrero_marzo_abril_mayo_junio_julio_agosto_septiembre_octubre_noviembre_diciembre'.split('_'),
-    monthsShort : function (m, format) {
-        if (!m) {
-            return monthsShortDot;
-        } else if (/-MMM-/.test(format)) {
-            return monthsShort[m.month()];
-        } else {
-            return monthsShortDot[m.month()];
-        }
-    },
-    monthsParseExact : true,
-    weekdays : 'domingo_lunes_martes_miércoles_jueves_viernes_sábado'.split('_'),
-    weekdaysShort : 'dom._lun._mar._mié._jue._vie._sáb.'.split('_'),
-    weekdaysMin : 'do_lu_ma_mi_ju_vi_sá'.split('_'),
-    weekdaysParseExact : true,
-    longDateFormat : {
-        LT : 'H:mm',
-        LTS : 'H:mm:ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D [de] MMMM [de] YYYY',
-        LLL : 'D [de] MMMM [de] YYYY H:mm',
-        LLLL : 'dddd, D [de] MMMM [de] YYYY H:mm'
-    },
-    calendar : {
-        sameDay : function () {
-            return '[hoy a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
-        },
-        nextDay : function () {
-            return '[mañana a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
-        },
-        nextWeek : function () {
-            return 'dddd [a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
-        },
-        lastDay : function () {
-            return '[ayer a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
-        },
-        lastWeek : function () {
-            return '[el] dddd [pasado a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
-        },
-        sameElse : 'L'
-    },
-    relativeTime : {
-        future : 'en %s',
-        past : 'hace %s',
-        s : 'unos segundos',
-        m : 'un minuto',
-        mm : '%d minutos',
-        h : 'una hora',
-        hh : '%d horas',
-        d : 'un día',
-        dd : '%d días',
-        M : 'un mes',
-        MM : '%d meses',
-        y : 'un año',
-        yy : '%d años'
-    },
-    dayOfMonthOrdinalParse : /\d{1,2}º/,
-    ordinal : '%dº',
-    week : {
-        dow : 1, // Monday is the first day of the week.
-        doy : 4  // The week that contains Jan 4th is the first week of the year.
-    }
-});
-
-return es;
-
-})));
 });
 
 window.moment = moment$2;

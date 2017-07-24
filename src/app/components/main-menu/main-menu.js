@@ -9,7 +9,7 @@ class MainMenu {
             {id:'es', name : 'Español'},
             {id:'en', name : 'English'}
         ];
-        this.langSelected = 'es';
+        this.langSelected = i18n.getLocale();
     }
     changeLanguage(lang){
         this.langSelected = lang;

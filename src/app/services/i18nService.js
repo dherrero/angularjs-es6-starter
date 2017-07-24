@@ -1,10 +1,10 @@
 import { app } from '../module';
 
-i18nService.$inject = ['$translate', 'amMoment'];
+i18nService.$inject = ['$translate', 'amMoment', 'initialLocale'];
 
-function i18nService(translate, moment) {
-    var locale_key = 'es',
-        localesInit = ['en', 'es'];
+function i18nService(translate, moment, initialLocale) {
+    var locale_key = initialLocale,
+        localesInit = ['en'];
 
     function addLocaleScript(locale) {
         if (localesInit.indexOf(locale) === -1 && locale.length === 2) {
