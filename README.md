@@ -4,4 +4,4 @@ Structure to quickly start frontend projects with AngularJs +1.6, ES6 standard a
 1. git clone
 2. npm i
 3. npm run start
-... ready to go
+4. write your app code
