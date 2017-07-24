@@ -4,6 +4,7 @@
   "description": "Structure to quickly start frontend projects in angularjs with bootstrap themes",
   "main": "index.js",
   "scripts": {
+    "fonts" : "cp -R node_modules/bootstrap/fonts fonts",
     "pro": "rollup -c rollup.config.js",
     "dev": "rollup -c rollup.config.dev.js --watch",
     "back": "json-server db.json",
