@@ -1,0 +1,19 @@
+section {
+    width: 100%;
+    float: left;
+}
+html [pointer], .pointer{
+    cursor: pointer
+}
+
+html [text-c], .text-c{
+    text-align: center
+}
+
+html [text-l], .text-l{
+    text-align: left
+}
+
+html [text-r], .text-r{
+    text-align: right
+}

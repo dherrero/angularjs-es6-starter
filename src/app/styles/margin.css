@@ -1,0 +1,108 @@
+/*** none ***/
+html [margin-none], .margin-none {
+    margin: 0;
+}
+html [margin-none-bottom], .margin-none-bottom {
+    margin-bottom: 0;
+}
+html [margin-none-top], .margin-none-top {
+    margin-top: 0;
+}
+html [margin-none-left], .margin-none-left {
+    margin-left: 0;
+}
+html [margin-none-right], .margin-none-right {
+    margin-right: 0;
+}
+
+/*** small ***/
+html [margin-small], .margin-small {
+    margin: 5px;
+}
+html [margin-small-bottom], .margin-small-bottom {
+    margin-bottom: 5px;
+}
+html [margin-small-top], .margin-small-top {
+    margin-top: 5px;
+}
+html [margin-small-right], .margin-small-right {
+    margin-right: 5px;
+}
+html [margin-small-left], .margin-small-left {
+    margin-left: 5px;
+}
+html [margin-small-horizontal], .margin-small-horizontal {
+    margin: 0 5px;
+}
+html [margin-small-vertical], .margin-small-vertical {
+    margin: 5px 0;
+}
+
+/*** medium ***/
+html [margin-medium], .margin-medium {
+    margin: 10px;
+}
+html [margin-medium-bottom], .margin-medium-bottom {
+    margin-bottom: 10px;
+}
+html [margin-medium-top], .margin-medium-top {
+    margin-top: 10px;
+}
+html [margin-medium-right], .margin-medium-right {
+    margin-right: 10px;
+}
+html [margin-medium-left], .margin-medium-left {
+    margin-left: 10px;
+}
+html [margin-medium-horizontal], .margin-medium-horizontal {
+    margin: 0 10px;
+}
+html [margin-medium-vertical], .margin-medium-vertical {
+    margin: 10px 0;
+}
+
+/*** large ***/
+html [margin-large], .margin-large {
+    margin: 15px;
+}
+html [margin-large-bottom], .margin-large-bottom {
+    margin-bottom: 15px;
+}
+html [margin-large-top], .margin-large-top {
+    margin-top: 15px;
+}
+html [margin-large-right], .margin-large-right {
+    margin-right: 15px;
+}
+html [margin-large-left], .margin-large-left {
+    margin-left: 15px;
+}
+html [margin-large-horizontal], .margin-large-horizontal {
+    margin: 0 15px;
+}
+html [margin-large-vertical], .margin-large-vertical {
+    margin: 15px 0;
+}
+
+/*** xlarge ***/
+html [margin-xlarge], .margin-xlarge {
+    margin: 25px;
+}
+html [margin-xlarge-bottom], .margin-xlarge-bottom {
+    margin-bottom: 25px;
+}
+html [margin-xlarge-top], .margin-xlarge-top {
+    margin-top: 25px;
+}
+html [margin-xlarge-right], .margin-xlarge-right {
+    margin-right: 25px;
+}
+html [margin-xlarge-left], .margin-xlarge-left {
+    margin-left: 25px;
+}
+html [margin-xlarge-horizontal], .margin-xlarge-horizontal {
+    margin: 0 25px;
+}
+html [margin-xlarge-vertical], .margin-xlarge-vertical {
+    margin: 25px 0;
+}

@@ -1,0 +1,14 @@
+{
+    "i18n": [
+        {
+            "lang": "es",
+            "APP_HI": "¡Hola Mundo!",
+            "APP_EXAMPLE" : "Ejemplo"
+        },
+        {
+            "lang": "en",
+            "APP_HI": "Hi World!",
+            "APP_EXAMPLE" : "Example"
+        }
+    ]
+}
