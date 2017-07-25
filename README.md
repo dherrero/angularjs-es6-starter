@@ -11,5 +11,5 @@ Structure to quickly start front-end projects with AngularJs +1.6, ES6 standard,
 3. npm run start
 4. write your app code
 
-## And my REST API?
+## Where is my REST API?
 Mock your Rest API with [json-server](https://github.com/typicode/json-server)
