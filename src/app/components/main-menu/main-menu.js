@@ -7,11 +7,14 @@ class MainMenu {
         this.i18n = i18n;
         this.languages = supportedLanguages;
         this.$state = $state;
-        this.langSelected = i18n.getLocale();
+        this._langSelected = i18n.getLocale();
     }
-    changeLanguage(lang){
-        this.langSelected = lang;
-        this.i18n.changeLocale(lang);
+    get langSelected(){
+        return this._langSelected;
+    }
+    set langSelected(value){
+        this._langSelected = value;
+        this.i18n.changeLocale(value);
     }
 }
 

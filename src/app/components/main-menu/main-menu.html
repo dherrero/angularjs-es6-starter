@@ -21,7 +21,7 @@
 					</a>
 					<ul class="dropdown-menu">
 						<li ng-repeat="lang in ::$ctrl.languages track by lang.id">
-							<a pointer ng-click="$ctrl.changeLanguage(lang.id)">
+							<a pointer ng-click="$ctrl.langSelected = lang.id">
 								{{::lang.name}} ({{::lang.id}})
 							</a>
 						</li>
