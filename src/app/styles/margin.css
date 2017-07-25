@@ -106,3 +106,25 @@ html [margin-xlarge-horizontal], .margin-xlarge-horizontal {
 html [margin-xlarge-vertical], .margin-xlarge-vertical {
     margin: 25px 0;
 }
+/*** xxlarge ***/
+html [margin-xxlarge], .margin-xxlarge {
+    margin: 50px;
+}
+html [margin-xxlarge-bottom], .margin-xxlarge-bottom {
+    margin-bottom: 50px;
+}
+html [margin-xxlarge-top], .margin-xxlarge-top {
+    margin-top: 50px;
+}
+html [margin-xxlarge-right], .margin-xxlarge-right {
+    margin-right: 50px;
+}
+html [margin-xxlarge-left], .margin-xxlarge-left {
+    margin-left: 50px;
+}
+html [margin-xxlarge-horizontal], .margin-xxlarge-horizontal {
+    margin: 0 50px;
+}
+html [margin-xxlarge-vertical], .margin-xxlarge-vertical {
+    margin: 50px 0;
+}
