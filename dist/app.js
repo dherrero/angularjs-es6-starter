@@ -33853,9 +33853,10 @@ const app = index.module('app', ['ui.router', 'ngAnimate', 'toastr', 'ngDialog',
 
 i18nService.$inject = ['$translate', 'amMoment', 'initialLocale'];
 
-function i18nService(translate, moment, initialLocale) {
-    var locale_key = initialLocale,
-        localesInit = ['en'];
+function i18nService(translate, amMoment, initialLocale) {
+    var locale_key = initialLocale;
+    //languages preloaded into the bundle
+    var localesInit = ['en'];
 
     function addLocaleScript(locale) {
         if (localesInit.indexOf(locale) === -1 && locale.length === 2) {
@@ -33869,7 +33870,7 @@ function i18nService(translate, moment, initialLocale) {
     var changeLocale = function (locale) {
         if (locale) {
             translate.use(locale);
-            moment.changeLocale(locale);
+            amMoment.changeLocale(locale);
             window.moment.locale(locale);
             addLocaleScript(locale);
             locale_key = locale;
@@ -33934,7 +33935,7 @@ var layout = "<rest-loading></rest-loading>\r\n<main-menu></main-menu>\r\n<div c
 
 var home = "<div class=\"jumbotron\">\r\n    <h1><span translate>APP_HI</span> <i class=\"glyphicon glyphicon-heart pull-right\"></i></h1>\r\n</div>";
 
-var example = "<div class=\"jumbotron\">\r\n    <h1 translate>APP_EXAMPLE</h1>\r\n</div>";
+var example = "<div class=\"jumbotron\">\r\n    <h1 translate>APP_PAGE_EXAMPLE</h1>\r\n</div>";
 
 function routeConfig($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
@@ -33977,14 +33978,15 @@ function i18nConfig($translateProvider, i18n, momentPickerProvider, initialLocal
 }
 app.config(i18nConfig);
 
-var mainMenuTpl = "<nav class=\"navbar navbar-default\">\r\n    <div class=\"container\">\r\n        <div class=\"navbar-header\">\r\n            <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#navbar\" aria-expanded=\"false\"\r\n                aria-controls=\"navbar\">\r\n              <span class=\"sr-only\">Toggle navigation</span>\r\n              <span class=\"icon-bar\"></span>\r\n              <span class=\"icon-bar\"></span>\r\n              <span class=\"icon-bar\"></span>\r\n            </button>\r\n            <a class=\"navbar-brand\"  ui-sref=\"app.home\">App name</a>\r\n        </div>\r\n        <div id=\"navbar\" class=\"navbar-collapse collapse\">\r\n            <ul class=\"nav navbar-nav\">\r\n                <li><a ui-sref=\"app.example\" translate>APP_EXAMPLE</a></li>\r\n            </ul>\r\n            <ul class=\"nav navbar-nav navbar-right\">\r\n                <li class=\"dropdown\">\r\n\t\t\t\t\t<a class=\"dropdown-toggle main-menu__button\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\r\n\t\t\t\t\t\t{{$ctrl.langSelected}} <span class=\"caret\"></span>\r\n\t\t\t\t\t</a>\r\n\t\t\t\t\t<ul class=\"dropdown-menu\">\r\n\t\t\t\t\t\t<li ng-repeat=\"lang in ::$ctrl.languages track by lang.id\">\r\n\t\t\t\t\t\t\t<a pointer ng-click=\"$ctrl.changeLanguage(lang.id)\">\r\n\t\t\t\t\t\t\t\t{{::lang.name}} ({{::lang.id}})\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t</li>\r\n\t\t\t\t\t</ul>\r\n\t\t\t\t</li>\r\n            </ul>\r\n        </div>\r\n        <!--/.nav-collapse -->\r\n    </div>\r\n    <!--/.container-fluid -->\r\n</nav>";
+var mainMenuTpl = "<nav class=\"navbar navbar-default\">\r\n    <div class=\"container\">\r\n        <div class=\"navbar-header\">\r\n            <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#navbar\" aria-expanded=\"false\"\r\n                aria-controls=\"navbar\">\r\n              <span class=\"sr-only\">Toggle navigation</span>\r\n              <span class=\"icon-bar\"></span>\r\n              <span class=\"icon-bar\"></span>\r\n              <span class=\"icon-bar\"></span>\r\n            </button>\r\n            <a class=\"navbar-brand logo\"  ui-sref=\"app.home\">App name</a>\r\n        </div>\r\n        <div id=\"navbar\" class=\"navbar-collapse collapse\">\r\n            <ul class=\"nav navbar-nav\">\r\n                <li ng-class=\"{'active': $ctrl.$state.current.name == 'app.example'}\"><a ui-sref=\"app.example\" translate=\"APP_EXAMPLE\"></a></li>\r\n            </ul>\r\n            <ul class=\"nav navbar-nav navbar-right\">\r\n                <li class=\"dropdown\">\r\n\t\t\t\t\t<a class=\"dropdown-toggle main-menu__button\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\r\n\t\t\t\t\t\t{{$ctrl.langSelected}} <span class=\"caret\"></span>\r\n\t\t\t\t\t</a>\r\n\t\t\t\t\t<ul class=\"dropdown-menu\">\r\n\t\t\t\t\t\t<li ng-repeat=\"lang in ::$ctrl.languages track by lang.id\">\r\n\t\t\t\t\t\t\t<a pointer ng-click=\"$ctrl.changeLanguage(lang.id)\">\r\n\t\t\t\t\t\t\t\t{{::lang.name}} ({{::lang.id}})\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t</li>\r\n\t\t\t\t\t</ul>\r\n\t\t\t\t</li>\r\n            </ul>\r\n        </div>\r\n        <!--/.nav-collapse -->\r\n    </div>\r\n    <!--/.container-fluid -->\r\n</nav>";
 
-__$styleInject("/*Custom css for main-menu here*/", undefined);
+__$styleInject("/*Custom css for main-menu here*/\r\nmain-menu .navbar-brand.logo{\r\n    color: orange;\r\n}\r\nmain-menu .navbar-brand.logo:hover{\r\n    color: green;\r\n}", undefined);
 
 class MainMenu {
-    constructor(i18n, supportedLanguages) {
+    constructor(i18n, supportedLanguages, $state) {
         this.i18n = i18n;
         this.languages = supportedLanguages;
+        this.$state = $state;
         this.langSelected = i18n.getLocale();
     }
     changeLanguage(lang) {
@@ -33993,7 +33995,7 @@ class MainMenu {
     }
 }
 
-MainMenu.$inject = ['i18n', 'supportedLanguages'];
+MainMenu.$inject = ['i18n', 'supportedLanguages', '$state'];
 
 app.component('mainMenu', {
     template: mainMenuTpl,
