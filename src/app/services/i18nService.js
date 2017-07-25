@@ -2,9 +2,10 @@ import { app } from '../module';
 
 i18nService.$inject = ['$translate', 'amMoment', 'initialLocale'];
 
-function i18nService(translate, moment, initialLocale) {
-    var locale_key = initialLocale,
-        localesInit = ['en'];
+function i18nService(translate, amMoment, initialLocale) {
+    var locale_key = initialLocale;
+    //languages preloaded into the bundle
+    var localesInit = ['en']; 
 
     function addLocaleScript(locale) {
         if (localesInit.indexOf(locale) === -1 && locale.length === 2) {
@@ -18,7 +19,7 @@ function i18nService(translate, moment, initialLocale) {
     var changeLocale = function (locale) {
         if (locale) {
             translate.use(locale);
-            moment.changeLocale(locale);
+            amMoment.changeLocale(locale);
             window.moment.locale(locale);
             addLocaleScript(locale);
             locale_key = locale;
