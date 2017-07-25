@@ -10,8 +10,18 @@
     "back": "json-server db.json",
     "start": "npm-run-all --parallel dev back"
   },
-  "author": "Daniel Herrero",
+  "author": {
+    "name": "Daniel Herrero",
+    "url": "https://www.linkedin.com/in/daniel-herrero-tom%C3%A1s-7781b143/"
+  },
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dherrero/quickstart"
+  },
+  "bugs" : {
+    "url": "https://github.com/dherrero/quickstart/issues"
+  },
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-preset-es2015-rollup": "^3.0.0",
