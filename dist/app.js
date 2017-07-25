@@ -33858,8 +33858,6 @@ var layout = "<rest-loading></rest-loading>\r\n<main-menu></main-menu>\r\n<div c
 
 var home = "<div class=\"jumbotron\">\r\n    <h1><span translate>APP_HI</span> <i class=\"glyphicon glyphicon-heart pull-right\"></i></h1>\r\n</div>";
 
-var example = "<div class=\"jumbotron\">\r\n    <h1 translate>APP_PAGE_EXAMPLE</h1>\r\n</div>";
-
 function routeConfig($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
 
@@ -33871,7 +33869,7 @@ function routeConfig($stateProvider, $urlRouterProvider) {
         template: home
     }).state('app.example', {
         url: '/example',
-        template: example
+        component: 'compExample'
     });
 }
 routeConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
@@ -33927,6 +33925,27 @@ app.component('mainMenu', {
     template: mainMenuTpl,
     controller: MainMenu
 });
+
+var exampleTpl = "<div class=\"jumbotron\">\n    <h1 translate = \"APP_PAGE_EXAMPLE\"></h1>\n</div>\n<div class=\"row margin-xlarge-vertical\">\n    <h3 translate=\"Alerts\"></h3>\n    <div class=\"btn btn-success margin-large-right\" ng-click=\"$ctrl.toast('success')\" translate>Success</div>\n    <div class=\"btn btn-info margin-large-right\" ng-click=\"$ctrl.toast('info')\" translate>Info</div>\n    <div class=\"btn btn-warning margin-large-right\" ng-click=\"$ctrl.toast('warning')\" translate>Warning</div>\n    <div class=\"btn btn-danger margin-large-right\" ng-click=\"$ctrl.toast('error')\" translate>Error</div>\n</div>";
+
+class CompExample {
+    constructor(toastr) {
+        this.toastr = toastr;
+    }
+
+    toast(type) {
+        this.toastr[type]('Hello world!', 'Toastr fun!');
+    }
+}
+
+CompExample.$inject = ['toastr'];
+
+const compExample = {
+    template: exampleTpl,
+    controller: CompExample
+};
+
+app.component('compExample', compExample);
 
 i18nFactory.$inject = ['$translate', 'amMoment', 'initialLocale'];
 

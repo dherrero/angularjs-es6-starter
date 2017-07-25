@@ -1,7 +1,6 @@
 import { app } from '../module';
 import layout from '../views/layout.html';
 import home from '../views/home.html';
-import example from '../views/example.html';
 
 function routeConfig($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
@@ -17,10 +16,10 @@ function routeConfig($stateProvider, $urlRouterProvider) {
         })
         .state('app.example', {
             url: '/example',
-            template: example
+            component: 'compExample'
         })
         ;
-        
+
 }
 routeConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
 
