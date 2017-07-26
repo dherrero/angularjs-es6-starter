@@ -33849,7 +33849,7 @@ var _angular = Object.freeze({
 	__moduleExports: index
 });
 
-const app = index.module('app', ['ui.router', 'ngAnimate', 'toastr', 'ngDialog', 'pascalprecht.translate', 'angularMoment', 'moment-picker']);
+var app = index.module('app', ['ui.router', 'ngAnimate', 'toastr', 'ngDialog', 'pascalprecht.translate', 'angularMoment', 'moment-picker']);
 
 i18nFactory.$inject = ['$translate', 'amMoment', 'initialLocale'];
 
@@ -33867,7 +33867,7 @@ function i18nFactory(translate, amMoment, initialLocale) {
             body.appendChild(script);
         }
     }
-    var changeLocale = function (locale) {
+    var changeLocale = function changeLocale(locale) {
         if (locale) {
             translate.use(locale);
             amMoment.changeLocale(locale);
@@ -33878,7 +33878,7 @@ function i18nFactory(translate, amMoment, initialLocale) {
         return locale_key;
     };
 
-    var getLocale = function () {
+    var getLocale = function getLocale() {
         return locale_key;
     };
 
@@ -33897,11 +33897,11 @@ function interceptor($rootScope, i18n, $q) {
     function request(config) {
         if (config.url.startsWith('/')) {
             if (config.url.indexOf('//') !== -1 || config.url.slice(-1) === "=") {
-                throw new Error(`Error: bad request ${config.url}`);
+                throw new Error('Error: bad request ' + config.url);
             } else {
-                config.url = `${back_server}${config.url}`;
+                config.url = '' + back_server + config.url;
                 if (config.method === 'GET') {
-                    let language = i18n.getLocale();
+                    var language = i18n.getLocale();
                     config.params = Object.assign({}, config.params, { lang: language });
                 }
             }
@@ -33980,21 +33980,52 @@ var mainMenuTpl = "<nav class=\"navbar navbar-default\">\r\n    <div class=\"con
 
 __$styleInject("/*Custom css for main-menu here*/\r\nmain-menu .navbar-brand.logo{\r\n    color: orange;\r\n}\r\nmain-menu .navbar-brand.logo:hover{\r\n    color: green;\r\n}", undefined);
 
-class MainMenu {
-    constructor(i18n, supportedLanguages, $state) {
+var classCallCheck = function (instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+};
+
+var createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
+
+var MainMenu = function () {
+    function MainMenu(i18n, supportedLanguages, $state) {
+        classCallCheck(this, MainMenu);
+
         this.i18n = i18n;
         this.languages = supportedLanguages;
         this.$state = $state;
         this._langSelected = i18n.getLocale();
     }
-    get langSelected() {
-        return this._langSelected;
-    }
-    set langSelected(value) {
-        this._langSelected = value;
-        this.i18n.changeLocale(value);
-    }
-}
+
+    createClass(MainMenu, [{
+        key: 'langSelected',
+        get: function get$$1() {
+            return this._langSelected;
+        },
+        set: function set$$1(value) {
+            this._langSelected = value;
+            this.i18n.changeLocale(value);
+        }
+    }]);
+    return MainMenu;
+}();
 
 MainMenu.$inject = ['i18n', 'supportedLanguages', '$state'];
 
@@ -34005,25 +34036,31 @@ app.component('mainMenu', {
 
 var exampleTpl = "<div class=\"jumbotron\">\n    <h1 translate = \"APP_PAGE_EXAMPLE\"></h1>\n</div>\n<div class=\"row margin-xlarge-vertical\">\n    <h3 translate=\"Alerts\"></h3>\n    <div class=\"btn btn-success margin-large-right\" ng-click=\"$ctrl.toast('success')\" translate>Success</div>\n    <div class=\"btn btn-info margin-large-right\" ng-click=\"$ctrl.toast('info')\" translate>Info</div>\n    <div class=\"btn btn-warning margin-large-right\" ng-click=\"$ctrl.toast('warning')\" translate>Warning</div>\n    <div class=\"btn btn-danger margin-large-right\" ng-click=\"$ctrl.toast('error')\" translate>Error</div>\n</div>";
 
-class CompExample {
-    constructor(toastr, $filter) {
+var CompExample = function () {
+    function CompExample(toastr, $filter) {
+        classCallCheck(this, CompExample);
+
         this.toastr = toastr;
         this.$filter = $filter;
     }
 
-    toast(type) {
-        let hi = this.$filter('translate')('APP_HI');
-        let ex = this.$filter('translate')('APP_EXAMPLE');
-        let capName = this.$filter('capitalize')(type);
-        let typeName = this.$filter('translate')(capName);
+    createClass(CompExample, [{
+        key: 'toast',
+        value: function toast(type) {
+            var hi = this.$filter('translate')('APP_HI');
+            var ex = this.$filter('translate')('APP_EXAMPLE');
+            var capName = this.$filter('capitalize')(type);
+            var typeName = this.$filter('translate')(capName);
 
-        this.toastr[type](hi, `${ex} ${typeName}`);
-    }
-}
+            this.toastr[type](hi, ex + ' ' + typeName);
+        }
+    }]);
+    return CompExample;
+}();
 
 CompExample.$inject = ['toastr', '$filter'];
 
-const compExample = {
+var compExample = {
     template: exampleTpl,
     controller: CompExample
 };
@@ -51774,6 +51811,13 @@ var moment = module.exports = momentTimezone;
 moment.tz.load(require$$1);
 });
 
+// include moment locale in the bundle... if do that add in 'src/app/services/i18nService.js' line 7: localesInit the locale code.
+// example:
+// in this file:
+// import _momentEs from 'moment/locale/es'
+// in file: 'src/app/services/i18nService.js' line 7:
+// localesInit = ['en', 'es']; // --> avoid script injection in to <body> 
+
 window.moment = moment$2;
 
 var angular_1 = createCommonjsModule(function (module, exports) {
@@ -51782,7 +51826,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 
 var ng_from_global = angular;
 exports.ng = (index && index.module) ? index : ng_from_global;
-//# sourceMappingURL=angular.js.map
+
 });
 
 var hof = createCommonjsModule(function (module, exports) {
@@ -52030,7 +52074,7 @@ function pattern(struct) {
     };
 }
 exports.pattern = pattern;
-//# sourceMappingURL=hof.js.map
+
 });
 
 var glob = createCommonjsModule(function (module, exports) {
@@ -52116,7 +52160,7 @@ var Glob = (function () {
     return Glob;
 }());
 exports.Glob = Glob;
-//# sourceMappingURL=glob.js.map
+
 });
 
 var stateObject = createCommonjsModule(function (module, exports) {
@@ -52233,7 +52277,7 @@ var StateObject = (function () {
     return StateObject;
 }());
 exports.StateObject = StateObject;
-//# sourceMappingURL=stateObject.js.map
+
 });
 
 var predicates = createCommonjsModule(function (module, exports) {
@@ -52283,7 +52327,7 @@ exports.isInjectable = isInjectable;
  * It is probably a Promise if it's an object, and it has a `then` property which is a Function
  */
 exports.isPromise = hof.and(exports.isObject, hof.pipe(hof.prop('then'), exports.isFunction));
-//# sourceMappingURL=predicates.js.map
+
 });
 
 var coreservices = createCommonjsModule(function (module, exports) {
@@ -52297,7 +52341,7 @@ var services = {
     $injector: undefined,
 };
 exports.services = services;
-//# sourceMappingURL=coreservices.js.map
+
 });
 
 var common = createCommonjsModule(function (module, exports) {
@@ -52947,7 +52991,7 @@ exports.silenceUncaughtInPromise = function (promise) {
 exports.silentRejection = function (error) {
     return exports.silenceUncaughtInPromise(coreservices.services.$q.reject(error));
 };
-//# sourceMappingURL=common.js.map
+
 });
 
 var queue = createCommonjsModule(function (module, exports) {
@@ -52996,7 +53040,7 @@ var Queue = (function () {
     return Queue;
 }());
 exports.Queue = Queue;
-//# sourceMappingURL=queue.js.map
+
 });
 
 var rejectFactory = createCommonjsModule(function (module, exports) {
@@ -53088,7 +53132,7 @@ var Rejection = (function () {
     return Rejection;
 }());
 exports.Rejection = Rejection;
-//# sourceMappingURL=rejectFactory.js.map
+
 });
 
 var trace_1 = createCommonjsModule(function (module, exports) {
@@ -53326,7 +53370,7 @@ exports.Trace = Trace;
  */
 var trace = new Trace();
 exports.trace = trace;
-//# sourceMappingURL=trace.js.map
+
 });
 
 var _interface = createCommonjsModule(function (module, exports) {
@@ -53345,7 +53389,7 @@ var TransitionHookScope;
     TransitionHookScope[TransitionHookScope["TRANSITION"] = 0] = "TRANSITION";
     TransitionHookScope[TransitionHookScope["STATE"] = 1] = "STATE";
 })(TransitionHookScope = exports.TransitionHookScope || (exports.TransitionHookScope = {}));
-//# sourceMappingURL=interface.js.map
+
 });
 
 var targetState = createCommonjsModule(function (module, exports) {
@@ -53462,7 +53506,7 @@ var TargetState = (function () {
     return TargetState;
 }());
 exports.TargetState = TargetState;
-//# sourceMappingURL=targetState.js.map
+
 });
 
 var transitionHook = createCommonjsModule(function (module, exports) {
@@ -53685,7 +53729,7 @@ var TransitionHook = (function () {
     return TransitionHook;
 }());
 exports.TransitionHook = TransitionHook;
-//# sourceMappingURL=transitionHook.js.map
+
 });
 
 var hookRegistry = createCommonjsModule(function (module, exports) {
@@ -53844,7 +53888,7 @@ function makeEvent(registry, transitionService, eventType) {
     return hookRegistrationFn;
 }
 exports.makeEvent = makeEvent;
-//# sourceMappingURL=hookRegistry.js.map
+
 });
 
 var hookBuilder = createCommonjsModule(function (module, exports) {
@@ -53966,7 +54010,7 @@ function tupleSort(reverseDepthSort) {
         return depthDelta !== 0 ? depthDelta : r.hook.priority - l.hook.priority;
     };
 }
-//# sourceMappingURL=hookBuilder.js.map
+
 });
 
 var paramType = createCommonjsModule(function (module, exports) {
@@ -54111,7 +54155,7 @@ function ArrayType(type, mode) {
         $arrayMode: mode
     });
 }
-//# sourceMappingURL=paramType.js.map
+
 });
 
 var param = createCommonjsModule(function (module, exports) {
@@ -54312,7 +54356,7 @@ var Param = (function () {
     return Param;
 }());
 exports.Param = Param;
-//# sourceMappingURL=param.js.map
+
 });
 
 var pathNode = createCommonjsModule(function (module, exports) {
@@ -54392,7 +54436,7 @@ var PathNode = (function () {
     return PathNode;
 }());
 exports.PathNode = PathNode;
-//# sourceMappingURL=pathNode.js.map
+
 });
 
 var pathFactory = createCommonjsModule(function (module, exports) {
@@ -54568,7 +54612,7 @@ var PathUtils = (function () {
     return PathUtils;
 }());
 exports.PathUtils = PathUtils;
-//# sourceMappingURL=pathFactory.js.map
+
 });
 
 var resolvable = createCommonjsModule(function (module, exports) {
@@ -54705,7 +54749,7 @@ var Resolvable = (function () {
     return Resolvable;
 }());
 exports.Resolvable = Resolvable;
-//# sourceMappingURL=resolvable.js.map
+
 });
 
 var _interface$2 = createCommonjsModule(function (module, exports) {
@@ -54723,7 +54767,7 @@ exports.resolvePolicies = {
         RXWAIT: "RXWAIT"
     }
 };
-//# sourceMappingURL=interface.js.map
+
 });
 
 var resolveContext = createCommonjsModule(function (module, exports) {
@@ -54926,7 +54970,7 @@ var UIInjectorImpl = (function () {
     };
     return UIInjectorImpl;
 }());
-//# sourceMappingURL=resolveContext.js.map
+
 });
 
 var transition$1 = createCommonjsModule(function (module, exports) {
@@ -55559,7 +55603,7 @@ var Transition = (function () {
     return Transition;
 }());
 exports.Transition = Transition;
-//# sourceMappingURL=transition.js.map
+
 });
 
 var strings = createCommonjsModule(function (module, exports) {
@@ -55705,7 +55749,7 @@ function joinNeighborsR(acc, x) {
 }
 exports.joinNeighborsR = joinNeighborsR;
 
-//# sourceMappingURL=strings.js.map
+
 });
 
 var index$7 = createCommonjsModule(function (module, exports) {
@@ -55723,7 +55767,7 @@ __export(predicates);
 __export(queue);
 __export(strings);
 __export(trace_1);
-//# sourceMappingURL=index.js.map
+
 });
 
 var paramTypes = createCommonjsModule(function (module, exports) {
@@ -55882,7 +55926,7 @@ function initDefaultTypes() {
     });
 }
 initDefaultTypes();
-//# sourceMappingURL=paramTypes.js.map
+
 });
 
 var stateParams = createCommonjsModule(function (module, exports) {
@@ -55929,7 +55973,7 @@ var StateParams = (function () {
     return StateParams;
 }());
 exports.StateParams = StateParams;
-//# sourceMappingURL=stateParams.js.map
+
 });
 
 var index$9 = createCommonjsModule(function (module, exports) {
@@ -55942,7 +55986,7 @@ __export(param);
 __export(paramTypes);
 __export(stateParams);
 __export(paramType);
-//# sourceMappingURL=index.js.map
+
 });
 
 var index$11 = createCommonjsModule(function (module, exports) {
@@ -55954,7 +55998,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /** @module path */ /** for typedoc */
 __export(pathNode);
 __export(pathFactory);
-//# sourceMappingURL=index.js.map
+
 });
 
 var index$13 = createCommonjsModule(function (module, exports) {
@@ -55967,7 +56011,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __export(_interface$2);
 __export(resolvable);
 __export(resolveContext);
-//# sourceMappingURL=index.js.map
+
 });
 
 var stateBuilder = createCommonjsModule(function (module, exports) {
@@ -56250,7 +56294,7 @@ var StateBuilder = (function () {
     return StateBuilder;
 }());
 exports.StateBuilder = StateBuilder;
-//# sourceMappingURL=stateBuilder.js.map
+
 });
 
 var stateMatcher = createCommonjsModule(function (module, exports) {
@@ -56316,7 +56360,7 @@ var StateMatcher = (function () {
     return StateMatcher;
 }());
 exports.StateMatcher = StateMatcher;
-//# sourceMappingURL=stateMatcher.js.map
+
 });
 
 var stateQueueManager = createCommonjsModule(function (module, exports) {
@@ -56411,7 +56455,7 @@ var StateQueueManager = (function () {
     return StateQueueManager;
 }());
 exports.StateQueueManager = StateQueueManager;
-//# sourceMappingURL=stateQueueManager.js.map
+
 });
 
 var stateRegistry = createCommonjsModule(function (module, exports) {
@@ -56570,7 +56614,7 @@ var StateRegistry = (function () {
     return StateRegistry;
 }());
 exports.StateRegistry = StateRegistry;
-//# sourceMappingURL=stateRegistry.js.map
+
 });
 
 var urlMatcher = createCommonjsModule(function (module, exports) {
@@ -57076,7 +57120,7 @@ var UrlMatcher = (function () {
     return UrlMatcher;
 }());
 exports.UrlMatcher = UrlMatcher;
-//# sourceMappingURL=urlMatcher.js.map
+
 });
 
 var urlMatcherFactory = createCommonjsModule(function (module, exports) {
@@ -57206,7 +57250,7 @@ var UrlMatcherFactory = (function () {
     return UrlMatcherFactory;
 }());
 exports.UrlMatcherFactory = UrlMatcherFactory;
-//# sourceMappingURL=urlMatcherFactory.js.map
+
 });
 
 var urlRule = createCommonjsModule(function (module, exports) {
@@ -57418,7 +57462,7 @@ var BaseUrlRule = (function () {
     return BaseUrlRule;
 }());
 exports.BaseUrlRule = BaseUrlRule;
-//# sourceMappingURL=urlRule.js.map
+
 });
 
 var urlRouter = createCommonjsModule(function (module, exports) {
@@ -57694,7 +57738,7 @@ function getHandlerFn(handler) {
     }
     return predicates.isFunction(handler) ? handler : hof.val(handler);
 }
-//# sourceMappingURL=urlRouter.js.map
+
 });
 
 var view = createCommonjsModule(function (module, exports) {
@@ -57982,7 +58026,7 @@ var ViewService = (function () {
     return ViewService;
 }());
 exports.ViewService = ViewService;
-//# sourceMappingURL=view.js.map
+
 });
 
 var globals = createCommonjsModule(function (module, exports) {
@@ -58023,7 +58067,7 @@ var UIRouterGlobals = (function () {
     return UIRouterGlobals;
 }());
 exports.UIRouterGlobals = UIRouterGlobals;
-//# sourceMappingURL=globals.js.map
+
 });
 
 var urlService = createCommonjsModule(function (module, exports) {
@@ -58106,7 +58150,7 @@ var UrlService = (function () {
     return UrlService;
 }());
 exports.UrlService = UrlService;
-//# sourceMappingURL=urlService.js.map
+
 });
 
 var router = createCommonjsModule(function (module, exports) {
@@ -58293,7 +58337,7 @@ var UIRouter = (function () {
     return UIRouter;
 }());
 exports.UIRouter = UIRouter;
-//# sourceMappingURL=router.js.map
+
 });
 
 var coreResolvables = createCommonjsModule(function (module, exports) {
@@ -58314,7 +58358,7 @@ function addCoreResolvables(trans) {
 exports.registerAddCoreResolvables = function (transitionService) {
     return transitionService.onCreate({}, addCoreResolvables);
 };
-//# sourceMappingURL=coreResolvables.js.map
+
 });
 
 var redirectTo = createCommonjsModule(function (module, exports) {
@@ -58354,7 +58398,7 @@ var redirectToHook = function (trans) {
 exports.registerRedirectToHook = function (transitionService) {
     return transitionService.onStart({ to: function (state) { return !!state.redirectTo; } }, redirectToHook);
 };
-//# sourceMappingURL=redirectTo.js.map
+
 });
 
 var onEnterExitRetain = createCommonjsModule(function (module, exports) {
@@ -58414,7 +58458,7 @@ var onEnterHook = makeEnterExitRetainHook('onEnter');
 exports.registerOnEnterHook = function (transitionService) {
     return transitionService.onEnter({ entering: function (state) { return !!state.onEnter; } }, onEnterHook);
 };
-//# sourceMappingURL=onEnterExitRetain.js.map
+
 });
 
 var resolve = createCommonjsModule(function (module, exports) {
@@ -58460,7 +58504,7 @@ var lazyResolveState = function (trans, state) {
 exports.registerLazyResolveState = function (transitionService) {
     return transitionService.onEnter({ entering: hof.val(true) }, lazyResolveState, { priority: 1000 });
 };
-//# sourceMappingURL=resolve.js.map
+
 });
 
 var views = createCommonjsModule(function (module, exports) {
@@ -58510,7 +58554,7 @@ var activateViews = function (transition) {
 exports.registerActivateViews = function (transitionService) {
     return transitionService.onSuccess({}, activateViews);
 };
-//# sourceMappingURL=views.js.map
+
 });
 
 var updateGlobals = createCommonjsModule(function (module, exports) {
@@ -58548,7 +58592,7 @@ var updateGlobalState = function (trans) {
 exports.registerUpdateGlobalState = function (transitionService) {
     return transitionService.onCreate({}, updateGlobalState);
 };
-//# sourceMappingURL=updateGlobals.js.map
+
 });
 
 var url = createCommonjsModule(function (module, exports) {
@@ -58576,7 +58620,7 @@ var updateUrl = function (transition) {
 exports.registerUpdateUrl = function (transitionService) {
     return transitionService.onSuccess({}, updateUrl, { priority: 9999 });
 };
-//# sourceMappingURL=url.js.map
+
 });
 
 var lazyLoad = createCommonjsModule(function (module, exports) {
@@ -58676,7 +58720,7 @@ function lazyLoadState(transition, state) {
     return promise;
 }
 exports.lazyLoadState = lazyLoadState;
-//# sourceMappingURL=lazyLoad.js.map
+
 });
 
 var transitionEventType = createCommonjsModule(function (module, exports) {
@@ -58707,7 +58751,7 @@ var TransitionEventType = (function () {
     return TransitionEventType;
 }());
 exports.TransitionEventType = TransitionEventType;
-//# sourceMappingURL=transitionEventType.js.map
+
 });
 
 var ignoredTransition = createCommonjsModule(function (module, exports) {
@@ -58741,7 +58785,7 @@ function ignoredHook(trans) {
 exports.registerIgnoredTransitionHook = function (transitionService) {
     return transitionService.onBefore({}, ignoredHook, { priority: -9999 });
 };
-//# sourceMappingURL=ignoredTransition.js.map
+
 });
 
 var invalidTransition = createCommonjsModule(function (module, exports) {
@@ -58763,7 +58807,7 @@ function invalidTransitionHook(trans) {
 exports.registerInvalidTransitionHook = function (transitionService) {
     return transitionService.onBefore({}, invalidTransitionHook, { priority: -10000 });
 };
-//# sourceMappingURL=invalidTransition.js.map
+
 });
 
 var transitionService = createCommonjsModule(function (module, exports) {
@@ -59005,7 +59049,7 @@ var TransitionService = (function () {
     return TransitionService;
 }());
 exports.TransitionService = TransitionService;
-//# sourceMappingURL=transitionService.js.map
+
 });
 
 var stateService = createCommonjsModule(function (module, exports) {
@@ -59581,7 +59625,7 @@ var StateService = (function () {
     return StateService;
 }());
 exports.StateService = StateService;
-//# sourceMappingURL=stateService.js.map
+
 });
 
 var index$15 = createCommonjsModule(function (module, exports) {
@@ -59597,7 +59641,7 @@ __export(stateQueueManager);
 __export(stateRegistry);
 __export(stateService);
 __export(targetState);
-//# sourceMappingURL=index.js.map
+
 });
 
 var index$17 = createCommonjsModule(function (module, exports) {
@@ -59628,7 +59672,7 @@ __export(transition$1);
 __export(transitionHook);
 __export(transitionEventType);
 __export(transitionService);
-//# sourceMappingURL=index.js.map
+
 });
 
 var index$19 = createCommonjsModule(function (module, exports) {
@@ -59642,7 +59686,7 @@ __export(urlMatcherFactory);
 __export(urlRouter);
 __export(urlRule);
 __export(urlService);
-//# sourceMappingURL=index.js.map
+
 });
 
 var index$21 = createCommonjsModule(function (module, exports) {
@@ -59652,7 +59696,7 @@ function __export(m) {
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(view);
-//# sourceMappingURL=index.js.map
+
 });
 
 var q = createCommonjsModule(function (module, exports) {
@@ -59710,7 +59754,7 @@ exports.$q = {
         }
     }
 };
-//# sourceMappingURL=q.js.map
+
 });
 
 var injector = createCommonjsModule(function (module, exports) {
@@ -59813,7 +59857,7 @@ exports.$injector = {
         return result || [];
     }
 };
-//# sourceMappingURL=injector.js.map
+
 });
 
 var utils = createCommonjsModule(function (module, exports) {
@@ -59884,7 +59928,7 @@ function locationPluginFactory(name, isHtml5, serviceClass, configurationClass) 
     };
 }
 exports.locationPluginFactory = locationPluginFactory;
-//# sourceMappingURL=utils.js.map
+
 });
 
 var baseLocationService = createCommonjsModule(function (module, exports) {
@@ -59932,7 +59976,7 @@ var BaseLocationServices = (function () {
     return BaseLocationServices;
 }());
 exports.BaseLocationServices = BaseLocationServices;
-//# sourceMappingURL=baseLocationService.js.map
+
 });
 
 var hashLocationService = createCommonjsModule(function (module, exports) {
@@ -59976,7 +60020,7 @@ var HashLocationService = (function (_super) {
     return HashLocationService;
 }(baseLocationService.BaseLocationServices));
 exports.HashLocationService = HashLocationService;
-//# sourceMappingURL=hashLocationService.js.map
+
 });
 
 var memoryLocationService = createCommonjsModule(function (module, exports) {
@@ -60013,7 +60057,7 @@ var MemoryLocationService = (function (_super) {
     return MemoryLocationService;
 }(baseLocationService.BaseLocationServices));
 exports.MemoryLocationService = MemoryLocationService;
-//# sourceMappingURL=memoryLocationService.js.map
+
 });
 
 var pushStateLocationService = createCommonjsModule(function (module, exports) {
@@ -60068,7 +60112,7 @@ var PushStateLocationService = (function (_super) {
     return PushStateLocationService;
 }(baseLocationService.BaseLocationServices));
 exports.PushStateLocationService = PushStateLocationService;
-//# sourceMappingURL=pushStateLocationService.js.map
+
 });
 
 var memoryLocationConfig = createCommonjsModule(function (module, exports) {
@@ -60096,7 +60140,7 @@ var MemoryLocationConfig = (function () {
     return MemoryLocationConfig;
 }());
 exports.MemoryLocationConfig = MemoryLocationConfig;
-//# sourceMappingURL=memoryLocationConfig.js.map
+
 });
 
 var browserLocationConfig = createCommonjsModule(function (module, exports) {
@@ -60146,7 +60190,7 @@ var BrowserLocationConfig = (function () {
     return BrowserLocationConfig;
 }());
 exports.BrowserLocationConfig = BrowserLocationConfig;
-//# sourceMappingURL=browserLocationConfig.js.map
+
 });
 
 var plugins = createCommonjsModule(function (module, exports) {
@@ -60178,7 +60222,7 @@ exports.hashLocationPlugin = utils.locationPluginFactory('vanilla.hashBangLocati
 exports.pushStateLocationPlugin = utils.locationPluginFactory("vanilla.pushStateLocation", true, pushStateLocationService.PushStateLocationService, browserLocationConfig.BrowserLocationConfig);
 /** A `UIRouterPlugin` that gets/sets the current location from an in-memory object */
 exports.memoryLocationPlugin = utils.locationPluginFactory("vanilla.memoryLocation", false, memoryLocationService.MemoryLocationService, memoryLocationConfig.MemoryLocationConfig);
-//# sourceMappingURL=plugins.js.map
+
 });
 
 var index$23 = createCommonjsModule(function (module, exports) {
@@ -60197,7 +60241,7 @@ __export(memoryLocationConfig);
 __export(browserLocationConfig);
 __export(utils);
 __export(plugins);
-//# sourceMappingURL=index.js.map
+
 });
 
 var vanilla = createCommonjsModule(function (module, exports) {
@@ -60212,7 +60256,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 /** */
 __export(index$23);
-//# sourceMappingURL=vanilla.js.map
+
 });
 
 var _interface$4 = createCommonjsModule(function (module, exports) {
@@ -60236,7 +60280,7 @@ var UIRouterPluginBase = (function () {
     return UIRouterPluginBase;
 }());
 exports.UIRouterPluginBase = UIRouterPluginBase;
-//# sourceMappingURL=interface.js.map
+
 });
 
 var index$5 = createCommonjsModule(function (module, exports) {
@@ -60261,7 +60305,7 @@ __export(globals);
 __export(router);
 __export(vanilla);
 __export(_interface$4);
-//# sourceMappingURL=index.js.map
+
 });
 
 var views$2 = createCommonjsModule(function (module, exports) {
@@ -60373,7 +60417,7 @@ var Ng1ViewConfig = (function () {
     return Ng1ViewConfig;
 }());
 exports.Ng1ViewConfig = Ng1ViewConfig;
-//# sourceMappingURL=views.js.map
+
 });
 
 var templateFactory = createCommonjsModule(function (module, exports) {
@@ -60570,7 +60614,7 @@ var scopeBindings = function (bindingsObj) { return Object.keys(bindingsObj || {
     .map(function (key) { return [key, /^([=<@&])[?]?(.*)/.exec(bindingsObj[key])]; })
     .filter(function (tuple) { return index$5.isDefined(tuple) && index$5.isArray(tuple[1]); })
     .map(function (tuple) { return ({ name: tuple[1][2] || tuple[0], type: tuple[1][1] }); }); };
-//# sourceMappingURL=templateFactory.js.map
+
 });
 
 var stateProvider = createCommonjsModule(function (module, exports) {
@@ -60713,7 +60757,7 @@ var StateProvider = (function () {
     return StateProvider;
 }());
 exports.StateProvider = StateProvider;
-//# sourceMappingURL=stateProvider.js.map
+
 });
 
 var onEnterExitRetain$2 = createCommonjsModule(function (module, exports) {
@@ -60741,7 +60785,7 @@ exports.getStateHookBuilder = function (hookName) {
         return hook ? decoratedNg1Hook : undefined;
     };
 };
-//# sourceMappingURL=onEnterExitRetain.js.map
+
 });
 
 var locationServices = createCommonjsModule(function (module, exports) {
@@ -60819,7 +60863,7 @@ var Ng1LocationServices = (function () {
     return Ng1LocationServices;
 }());
 exports.Ng1LocationServices = Ng1LocationServices;
-//# sourceMappingURL=locationServices.js.map
+
 });
 
 var urlRouterProvider = createCommonjsModule(function (module, exports) {
@@ -61028,7 +61072,7 @@ var UrlRouterProvider = (function () {
     return UrlRouterProvider;
 }());
 exports.UrlRouterProvider = UrlRouterProvider;
-//# sourceMappingURL=urlRouterProvider.js.map
+
 });
 
 var services = createCommonjsModule(function (module, exports) {
@@ -61147,7 +61191,7 @@ exports.getLocals = function (ctx) {
     });
     return tuples.reduce(index$5.applyPairs, {});
 };
-//# sourceMappingURL=services.js.map
+
 });
 
 var injectables = createCommonjsModule(function (module, exports) {
@@ -61518,7 +61562,7 @@ var $urlMatcherFactory;
  * @deprecated
  */
 var $urlMatcherFactoryProvider;
-//# sourceMappingURL=injectables.js.map
+
 });
 
 var stateDirectives = createCommonjsModule(function (module, exports) {
@@ -62092,7 +62136,7 @@ angular_1.ng.module('ui.router.state')
     .directive('uiSrefActive', uiSrefActive)
     .directive('uiSrefActiveEq', uiSrefActive)
     .directive('uiState', uiState);
-//# sourceMappingURL=stateDirectives.js.map
+
 });
 
 var stateFilters = createCommonjsModule(function (module, exports) {
@@ -62141,7 +62185,7 @@ exports.$IncludedByStateFilter = $IncludedByStateFilter;
 angular_1.ng.module('ui.router.state')
     .filter('isState', $IsStateFilter)
     .filter('includedByState', $IncludedByStateFilter);
-//# sourceMappingURL=stateFilters.js.map
+
 });
 
 var viewDirective = createCommonjsModule(function (module, exports) {
@@ -62434,7 +62478,7 @@ function registerControllerCallbacks($q, $transitions, controllerInstance, $scop
 }
 angular_1.ng.module('ui.router.state').directive('uiView', exports.uiView);
 angular_1.ng.module('ui.router.state').directive('uiView', $ViewDirectiveFill);
-//# sourceMappingURL=viewDirective.js.map
+
 });
 
 var viewScroll = createCommonjsModule(function (module, exports) {
@@ -62460,7 +62504,7 @@ function $ViewScrollProvider() {
         }];
 }
 angular_1.ng.module('ui.router.state').provider('$uiViewScroll', $ViewScrollProvider);
-//# sourceMappingURL=viewScroll.js.map
+
 });
 
 var index$3 = createCommonjsModule(function (module, exports) {
@@ -62486,7 +62530,7 @@ exports.default = "ui.router";
 
 exports.core = index$5;
 __export(index$5);
-//# sourceMappingURL=index.js.map
+
 });
 
 var index$4 = unwrapExports(index$3);
@@ -73380,15 +73424,15 @@ var _ngDialog = Object.freeze({
 	__moduleExports: ngDialog$1
 });
 
-const angular$3 = _angular;
-const uirouter = _uirouter;
-const angularAnimate = _angularAnimate;
-const angularToastr = _angularToastr;
-const angularTranslate = _angularTranslate;
-const angularMoment = _angularMoment;
-const angularMomentPicker = _angularMomentPicker;
-const angularTranslateLoaderUrl = _angularTranslateLoaderUrl;
-const ngDialog = _ngDialog;
+var angular$3 = _angular;
+var uirouter = _uirouter;
+var angularAnimate = _angularAnimate;
+var angularToastr = _angularToastr;
+var angularTranslate = _angularTranslate;
+var angularMoment = _angularMoment;
+var angularMomentPicker = _angularMomentPicker;
+var angularTranslateLoaderUrl = _angularTranslateLoaderUrl;
+var ngDialog = _ngDialog;
 
 exports.app = app;
 exports.angular = angular$3;
