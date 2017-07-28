@@ -1,11 +1,12 @@
 import angular from 'angular';
 
 export const app = angular.module('app', [
-    'ui.router', 
+    'ui.router',
     'ngAnimate',
     'toastr',
     'ngDialog',
     'pascalprecht.translate',
     'angularMoment',
-    'moment-picker'
+    'moment-picker',
+    'ui.bootstrap'
 ]);

@@ -4,7 +4,7 @@
   "description": "Structure to quickly start frontend projects in angularjs with bootstrap themes",
   "main": "index.js",
   "scripts": {
-    "fonts" : "cp -R node_modules/bootstrap/fonts fonts",
+    "fonts": "cp -R node_modules/bootstrap/fonts fonts",
     "pro": "rollup -c rollup.config.js",
     "dev": "rollup -c rollup.config.dev.js --watch",
     "back": "json-server db.json",
@@ -19,7 +19,7 @@
     "type": "git",
     "url": "https://github.com/dherrero/quickstart"
   },
-  "bugs" : {
+  "bugs": {
     "url": "https://github.com/dherrero/quickstart/issues"
   },
   "devDependencies": {
@@ -49,6 +49,7 @@
     "angular-toastr": "1.7.0",
     "angular-translate": "2.10.0",
     "angular-translate-loader-url": "2.10.0",
+    "angular-ui-bootstrap": "^2.5.0",
     "angular-ui-router-anim-in-out": "^1.0.2",
     "bootstrap": "^3.3.7",
     "jquery": "^3.2.1",
