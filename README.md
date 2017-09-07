@@ -5,7 +5,7 @@ Structure to quickly start front-end projects with AngularJs +1.6, ES6 standard,
 * Handling dates with [momentjs](http://momentjs.com/)
 
 ## How to start
-1. git clone
+1. git clone https://github.com/dherrero/quickstart.git
 2. cd quickstart
 3. npm i
 4. npm run start
