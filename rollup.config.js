@@ -16,7 +16,10 @@ export default {
             include: '**/*.html'
         }),
         json({
-            include: 'node_modules/**',
+            include: [
+                'node_modules/**',
+                'src/app/**'
+            ]
         }),
         postcss({
             extensions: ['.css'],
