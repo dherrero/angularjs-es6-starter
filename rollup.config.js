@@ -5,6 +5,7 @@ import resolve from 'rollup-plugin-node-resolve';
 import postcss from 'rollup-plugin-postcss';
 import string from 'rollup-plugin-string';
 import json from 'rollup-plugin-json';
+import copy from 'rollup-plugin-copy';
 
 export default {
     entry: 'src/index.js',
@@ -20,6 +21,10 @@ export default {
                 'node_modules/**',
                 'src/app/**'
             ]
+        }),
+        copy({            
+            "node_modules/bootstrap/fonts": "fonts/",
+            verbose: true
         }),
         postcss({
             extensions: ['.css'],
