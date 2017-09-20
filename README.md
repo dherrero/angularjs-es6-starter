@@ -8,3 +8,5 @@ WIP (Work in process)
 2. cd angularjs-es6-starter
 3. npm i
 4. npm run dev
+
+### Demo: https://dherrero.github.io/angularjs-es6-starter
