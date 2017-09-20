@@ -9,4 +9,4 @@ WIP (Work in process)
 3. npm i
 4. npm run dev
 
-### Demo: https://dherrero.github.io/angularjs-es6-starter
+### Demo: [https://dherrero.github.io/angularjs-es6-starter](https://dherrero.github.io/angularjs-es6-starter){:target="_blank"}
