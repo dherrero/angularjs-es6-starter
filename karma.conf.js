@@ -2,17 +2,19 @@
 module.exports = function(config) {
   config.set({
 
-  
     basePath: '',
 
     frameworks: ['jasmine'],
 
     files: [
-      'node_modules/angular/angular.min.js',
-      'node_modules/angular-mocks/angular-mocks.js',
-      'src/**/*.js',
-      'test/**/*test.js'
+      'dist/*.js',
+      'node_modules/angular-mocks/angular-mocks.js'
     ],
+
+    preprocessors: {
+      'src/**/*.js': ['rollup'],
+      'src/**/*.spec.js': ['rollup'],
+    },
 
     exclude: [
     ],
@@ -31,12 +33,6 @@ module.exports = function(config) {
 
     singleRun: false,
 
-    concurrency: Infinity,
-
-    plugins: [
-      'karma-jasmine',
-      'karma-chrome-launcher',
-      'karma-sourcemap-loader'
-  ]
+    concurrency: Infinity
   })
 }
