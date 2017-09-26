@@ -1,7 +1,0 @@
-/*Custom css for main-menu here*/
-main-menu .navbar-brand.logo{
-    color: orange;
-}
-main-menu .navbar-brand.logo:hover{
-    color: green;
-}
