@@ -24,3 +24,5 @@ node_modules
 npm-debug.log
 src
 *.config.*
+*.conf.*
+package.json
