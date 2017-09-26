@@ -5,10 +5,11 @@
   "main": "index.js",
   "scripts": {
     "pro": "rollup -c rollup.config.js",
-    "dev": "rollup -c rollup.config.dev.js --watch",
+    "dev": "rollup -c rollup.config.dev.js",
+    "dev-watch": "rollup -c rollup.config.dev.js --watch",
     "back": "json-server db.json",
-    "start": "npm-run-all --parallel dev back",
-    "test" : "karma start"
+    "start": "npm-run-all --parallel dev-watch back",
+    "test": "karma start"
   },
   "author": {
     "name": "Daniel Herrero",
@@ -29,9 +30,9 @@
     "jasmine-core": "^2.8.0",
     "json-server": "^0.10.0",
     "karma": "^1.7.1",
+    "karma-babel-preprocessor": "^7.0.0",
     "karma-chrome-launcher": "^2.2.0",
     "karma-jasmine": "^1.1.0",
-    "karma-rollup-preprocessor": "^5.0.1",
     "karma-sourcemap-loader": "^0.3.7",
     "npm-run-all": "^4.0.2",
     "rollup": "^0.41.6",

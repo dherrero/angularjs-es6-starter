@@ -7,6 +7,6 @@ WIP (Work in process)
 1. Git clone https://github.com/dherrero/angularjs-es6-starter.git
 2. cd angularjs-es6-starter
 3. npm i
-4. npm run dev
+4. npm start
 
 ### [Demo page](https://dherrero.github.io/angularjs-es6-starter)

@@ -7,13 +7,13 @@ module.exports = function(config) {
     frameworks: ['jasmine'],
 
     files: [
-      'dist/*.js',
-      'node_modules/angular-mocks/angular-mocks.js'
+      'dist/app.js',
+      {pattern: 'node_modules/angular-mocks/angular-mocks.js', watched:false},
+      'src/**/*.spec.js'
     ],
 
     preprocessors: {
-      'src/**/*.js': ['rollup'],
-      'src/**/*.spec.js': ['rollup'],
+      'src/**/*.spec.js': ['babel']
     },
 
     exclude: [
