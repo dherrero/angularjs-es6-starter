@@ -1,1 +1,1 @@
-# DEMO for https://github.com/dherrero/angularjs-es6-starter/
+# Develop version demo for https://github.com/dherrero/angularjs-es6-starter/
