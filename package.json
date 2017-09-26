@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "pro": "rollup -c rollup.config.js",
+    "pro-serve": "rollup -c rollup.config.serve.js",
     "dev": "rollup -c rollup.config.dev.js",
     "dev-watch": "rollup -c rollup.config.dev.js --watch",
     "back": "json-server db.json",
@@ -39,13 +40,14 @@
     "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-commonjs": "^8.0.2",
     "rollup-plugin-copy": "^0.2.3",
+    "rollup-plugin-javascript-obfuscator": "^1.0.1",
     "rollup-plugin-json": "^2.3.0",
     "rollup-plugin-livereload": "^0.4.0",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-postcss": "^0.4.1",
     "rollup-plugin-serve": "^0.3.0",
     "rollup-plugin-string": "^2.0.2",
-    "rollup-plugin-uglify": "^1.0.2",
+    "rollup-plugin-uglify": "^2.0.1",
     "rollup-watch": "^3.2.2"
   },
   "dependencies": {

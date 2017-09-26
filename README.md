@@ -14,4 +14,11 @@ WIP (Work in process)
 ## Testing
  - npm run test
 
+## Develop mode
+ - npm run dev-watch  (**bundle and watch JS files with live reload browser. Generates mapping**)
+ - npm run back  (**Mock APIs REST with [json-server](https://github.com/typicode/json-server)**)
+
+ ## Production mode
+ - npm run pro (**bundle and obfuscate JS files**)
+
 ### [Demo page](https://dherrero.github.io/angularjs-es6-starter)
