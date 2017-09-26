@@ -25,6 +25,7 @@ export default {
         }),
         copy({            
             "node_modules/bootstrap/fonts": "fonts/",
+            "node_modules/moment/locale/": "locale/",
             verbose: true
         }),
         postcss({

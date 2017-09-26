@@ -12,7 +12,7 @@ function i18nFactory(translate, amMoment, initialLocale) {
             localesInit.push(locale);
             var body = document.body || document.getElementsByTagName('body')[0],
                 script = document.createElement('script');
-            script.src = './node_modules/moment/locale/' + locale + '.js';
+            script.src = './locale/' + locale + '.js';
             body.appendChild(script);
         }
     }
