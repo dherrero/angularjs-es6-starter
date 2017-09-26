@@ -5,7 +5,7 @@ With unit testing examples
 
 WIP (Work in process)
 
-## How to start?
+## Start
 1. Git clone https://github.com/dherrero/angularjs-es6-starter.git
 2. cd angularjs-es6-starter
 3. npm i
