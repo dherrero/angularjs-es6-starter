@@ -1,4 +1,5 @@
 import uglify from 'rollup-plugin-uglify';
+import obfuscatorPlugin from 'rollup-plugin-javascript-obfuscator'
 import babel from 'rollup-plugin-babel';
 import commonjs from 'rollup-plugin-commonjs';
 import resolve from 'rollup-plugin-node-resolve';
@@ -44,8 +45,9 @@ export default {
                 '**/*.html'
             ]
         }),
-        uglify()
-    ],
-    sourceMap: true,
-    sourceMapFile: 'dist/app.js.map'
+        uglify(),
+        obfuscatorPlugin({
+            compact: true
+          })
+    ]
 };

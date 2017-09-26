@@ -5,9 +5,12 @@
   "main": "index.js",
   "scripts": {
     "pro": "rollup -c rollup.config.js",
-    "dev": "rollup -c rollup.config.dev.js --watch",
+    "pro-serve": "rollup -c rollup.config.serve.js",
+    "dev": "rollup -c rollup.config.dev.js",
+    "dev-watch": "rollup -c rollup.config.dev.js --watch",
     "back": "json-server db.json",
-    "start": "npm-run-all --parallel dev back"
+    "start": "npm-run-all --parallel dev-watch back",
+    "test": "karma start"
   },
   "author": {
     "name": "Daniel Herrero",
@@ -22,21 +25,29 @@
     "url": "https://github.com/dherrero/quickstart/issues"
   },
   "devDependencies": {
+    "angular-mocks": "^1.6.6",
     "babel-cli": "^6.24.1",
     "babel-preset-es2015-rollup": "^3.0.0",
+    "jasmine-core": "^2.8.0",
     "json-server": "^0.10.0",
+    "karma": "^1.7.1",
+    "karma-babel-preprocessor": "^7.0.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-jasmine": "^1.1.0",
+    "karma-sourcemap-loader": "^0.3.7",
     "npm-run-all": "^4.0.2",
     "rollup": "^0.41.6",
     "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-commonjs": "^8.0.2",
     "rollup-plugin-copy": "^0.2.3",
+    "rollup-plugin-javascript-obfuscator": "^1.0.1",
     "rollup-plugin-json": "^2.3.0",
     "rollup-plugin-livereload": "^0.4.0",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-postcss": "^0.4.1",
     "rollup-plugin-serve": "^0.3.0",
     "rollup-plugin-string": "^2.0.2",
-    "rollup-plugin-uglify": "^1.0.2",
+    "rollup-plugin-uglify": "^2.0.1",
     "rollup-watch": "^3.2.2"
   },
   "dependencies": {
