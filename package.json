@@ -62,7 +62,7 @@
     "angular-translate-loader-url": "2.10.0",
     "angular-ui-bootstrap": "^2.5.0",
     "angular-ui-router-anim-in-out": "^1.0.2",
-    "bootstrap": "^3.3.7",
+    "bootstrap": "^4.1.2",
     "jquery": "^3.2.1",
     "moment": "^2.18.1",
     "moment-timezone": "^0.5.13",
