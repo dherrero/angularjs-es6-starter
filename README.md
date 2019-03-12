@@ -1,4 +1,4 @@
-# Angular JS starter
+# Angular JS starter (deprecated)
 Structure to quickly start front-end projects with AngularJs +1.6, ES6 standard, momentJs, Bootstrap templates... all then bundled with Rollup.
 
 With unit testing examples
