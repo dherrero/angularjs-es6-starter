@@ -58,7 +58,7 @@
     "angular-moment": "^1.0.1",
     "angular-moment-picker": "^0.10.1",
     "angular-toastr": "1.7.0",
-    "angular-translate": "2.10.0",
+    "angular-translate": "^2.18.2",
     "angular-translate-loader-url": "2.10.0",
     "angular-ui-bootstrap": "^2.5.0",
     "angular-ui-router-anim-in-out": "^1.0.2",
