@@ -4,6 +4,11 @@ Structure to quickly start front-end projects with AngularJs +1.6, ES6 standard,
 With unit testing examples
 
 WIP (Work in process)
+## TODO
+- [ ] Change CSS for SCSS
+- [ ] Update Bootstrap
+- [ ] Change the type of rendering box (block -> flex)
+- [ ] Update AngularJS last version
 
 ## Start
 1. Git clone https://github.com/dherrero/angularjs-es6-starter.git
